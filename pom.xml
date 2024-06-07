@@ -25,6 +25,15 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
+    <!--aca va el driver de mysql: lo busco en internet, en el repositorio maven-->
+    <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+    <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <version>8.4.0</version>
+    </dependency>
+   
   </dependencies>
 
   <build>
