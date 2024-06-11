@@ -3,7 +3,7 @@ package ar.com.codo24100.web.controllers;
 import ar.com.codo24100.web.domain.Clientes;
 import ar.com.codo24100.web.service.ClientesService;
 
-public class ClientesController {
+public class ObtenerClientesController {
 
     public static void main(String[] args) {
 
