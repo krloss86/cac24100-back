@@ -17,6 +17,13 @@ public class ClientesDTO {
         this.imagen = imagen;
         this.tipoClienteId = tipoClienteId;
     }
+    public ClientesDTO(String nombre, String apellido, String email, String imagen, Long tipoClienteId) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.imagen = imagen;
+        this.tipoClienteId = tipoClienteId;
+    }
 
     public Long getId() {
         return id;

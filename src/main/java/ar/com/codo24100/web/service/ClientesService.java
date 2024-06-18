@@ -1,5 +1,7 @@
 package ar.com.codo24100.web.service;
 
+import java.util.ArrayList;
+
 import ar.com.codo24100.web.dao.ICrud;
 import ar.com.codo24100.web.dao.MySQLCrudImpl;
 import ar.com.codo24100.web.domain.Clientes;
@@ -15,10 +17,22 @@ public class ClientesService {
     }
 
     public void crearCliente(ClientesDTO dto) {
-        //this.crud.getById(null);
+        this.crud.create(dto);
     }
 
     public Clientes obtenerClientePorID(Long id) {
         return this.crud.getById(id);
+    }
+
+    public void eliminiarClientePorID(Long id) {
+        this.crud.delete(id);
+    }
+
+    public ArrayList<Clientes> listarClientes() {
+        return this.crud.findAll();
+    }
+
+    public void actualizarCliente(ClientesDTO cliente) {
+        this.crud.update(cliente);
     }
 }
