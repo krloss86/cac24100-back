@@ -1,14 +1,28 @@
 package ar.com.codo24100.web.controllers;
 
+import java.io.IOException;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import ar.com.codo24100.web.domain.Clientes;
 import ar.com.codo24100.web.dto.ClientesDTO;
 import ar.com.codo24100.web.service.ClientesService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-public class CrearClientesController {
-
+@WebServlet("/CrearClientesController")//1
+public class CrearClientesController extends HttpServlet{
     
-    public static void main(String[] args) {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       
+        String jsonQueMandaElFront = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 
+        System.out.println(jsonQueMandaElFront);
+        
         //quiero obtener un cliente de la base de datos con id=1
         //Long id = 1l;//recibo desde el request que mando algun frontend
         String nombre ="juan";
@@ -28,7 +42,7 @@ public class CrearClientesController {
         //crar el DTO
         ClientesDTO dto = new ClientesDTO(nombre, apellido, email,imagen, tipoClienteId);
         service.crearCliente(dto);
-
+      
         ///fin!
     }
 }
