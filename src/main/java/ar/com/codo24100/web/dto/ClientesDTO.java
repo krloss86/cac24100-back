@@ -9,6 +9,11 @@ public class ClientesDTO {
     private String imagen;
     private Long tipoClienteId;
     
+    //necesitamos un contrcutor por defecto para poder usar jackson
+    public ClientesDTO(){
+
+    }
+
     public ClientesDTO(Long id, String nombre, String apellido, String email, String imagen, Long tipoClienteId) {
         this.id = id;
         this.nombre = nombre;

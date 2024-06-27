@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/ListarClientesController")
+//tph: crear clase base !!
 public class ListarClientesController extends HttpServlet{
 
     @Override

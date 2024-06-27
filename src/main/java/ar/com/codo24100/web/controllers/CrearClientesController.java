@@ -1,10 +1,8 @@
 package ar.com.codo24100.web.controllers;
 
 import java.io.IOException;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import ar.com.codo24100.web.domain.Clientes;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ar.com.codo24100.web.dto.ClientesDTO;
 import ar.com.codo24100.web.service.ClientesService;
 import jakarta.servlet.ServletException;
@@ -17,32 +15,29 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CrearClientesController extends HttpServlet{
     
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(
+        HttpServletRequest req, //esto tiene los datos del front
+        HttpServletResponse resp//va todo lo que el back quiera enviarle al front
+    ) throws ServletException, IOException {
        
         String jsonQueMandaElFront = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 
         System.out.println(jsonQueMandaElFront);
         
-        //quiero obtener un cliente de la base de datos con id=1
-        //Long id = 1l;//recibo desde el request que mando algun frontend
-        String nombre ="juan";
-        String apellido = "perez";
-        String email = "email@email.com";
-        String imagen = "/img/bla.jpg";
-        Long tipoClienteId = 1l; 
-
-        if(nombre == null || nombre.isBlank()) {
-            //aca hay un error!
-            return;
-        }
-        //agregar validaciones: TPH
-
-        ClientesService service = new ClientesService();
+        //usamos jackson para convertir el texto que viene desde el front en 
+        //un objecto java "magicamente" creado
+        ObjectMapper mapper = new ObjectMapper();
 
         //crar el DTO
-        ClientesDTO dto = new ClientesDTO(nombre, apellido, email,imagen, tipoClienteId);
+        ClientesDTO dto = mapper.readValue(jsonQueMandaElFront, ClientesDTO.class);
+
+        ClientesService service = new ClientesService();
+        
         service.crearCliente(dto);
       
-        ///fin!
+        //respondemos algo al front por medio del codigo de estado
+        //http status code: 100,200,300,400,500
+        
+        resp.setStatus(HttpServletResponse.SC_CREATED);/////creado
     }
 }
