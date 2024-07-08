@@ -123,24 +123,28 @@ public class MySQLCrudImpl implements ICrud{
     }
 
     public void update(ClientesDTO cliente) {
-        StringBuffer columnasSet = new StringBuffer("UPDATE clientes set (");
-        int signos = 0;
-        if(cliente.getApellido() != null) {
-            columnasSet.append("apellido,");
-            signos++;
-        }
-        if(cliente.getNombre() != null) {
-            columnasSet.append("mombre,");
-            signos++;
-        }
-        if(cliente.getEmail() !=null ){
-            columnasSet.append("email,");
-            signos++;
-        }
-        //....
-        //ver como elminiar la , del final de string buffer
-        columnasSet.append(") values ()");
+        
+        String sql = new String("UPDATE clientes set nombre=?, apellido=?, email=?, clientes_tipos_id=? WHERE id=? ");
 
-        //
+        Connection connection = AdministradorDeConexiones.conectar();        
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, cliente.getNombre());
+            pst.setString(2, cliente.getApellido());
+            pst.setString(3, cliente.getEmail());
+            //pst.setString(3, cliente.getImagen());
+            pst.setLong(4, cliente.getTipoClienteId());
+
+            pst.setLong(5, cliente.getId());
+
+            pst.executeUpdate();
+            if(pst.getUpdateCount() > 0) {
+                System.out.println("update ok");
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            AdministradorDeConexiones.desconectar(connection);
+        }    
     }
 }
